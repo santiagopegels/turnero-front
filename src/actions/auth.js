@@ -25,3 +25,22 @@ const login = (user) => ({
     type: types.authLogin,
     payload: user
 })
+
+export const startRegister = (email, password, name) => {
+    return async (dispatch) => {
+
+        const resp = await fetchWithoutToken('auth/register', { email, password, name }, 'POST')
+        const body = await resp.json()
+
+        if (body.status) {
+            localStorage.setItem('token', body.token)
+            localStorage.setItem('token-init-date', new Date().getTime())
+
+            dispatch(login({
+                uid: body.user.uid,
+                name: body.user.name
+            }))
+        }
+
+    }
+}

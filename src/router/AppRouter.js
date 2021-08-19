@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { LoginScreen } from '../components/auth/LoginScreen';
 import { PublicRoute } from './PublicRoute';
+import { RegisterScreen } from '../components/auth/RegisterScreen';
 
 
 export const AppRouter = () => {
@@ -18,6 +19,13 @@ export const AppRouter = () => {
                         exact
                         path="/login"
                         component={LoginScreen}
+                        isAuthenticated={!!false}
+                    />
+
+                    <PublicRoute
+                        exact
+                        path="/register"
+                        component={RegisterScreen}
                         isAuthenticated={!!false}
                     />
 
