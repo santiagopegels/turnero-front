@@ -32,6 +32,7 @@ export const LoginScreen = () => {
                     <Form.Item
                         label="Email"
                         name="email"
+                        initialValue='1241254@test.com'
                         rules={[
                             {
                                 required: true,
@@ -46,6 +47,7 @@ export const LoginScreen = () => {
                     <Form.Item
                         label="Password"
                         name="password"
+                        initialValue='124124'
                         rules={[
                             {
                                 required: true,
