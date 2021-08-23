@@ -6,4 +6,6 @@ export const types = {
     authCheckingFinish: '[auth] Finish checking login state',
     authStartTokenRenew: '[auth] Start Token Renew',
     authLogout: '[auth] Logout',
+
+    queuesLoaded: '[queue] Queues loaded', 
 }

@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 import { authReducer } from "./authReducer";
+import { queueReducer } from "./queueReducer";
 
 export const rootReducer = combineReducers({
-    auth: authReducer
-
+    auth: authReducer,
+    queue: queueReducer
 })
