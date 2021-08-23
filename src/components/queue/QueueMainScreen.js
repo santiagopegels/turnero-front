@@ -2,11 +2,13 @@ import React, { useEffect } from 'react'
 
 import { QueueCard } from './QueueCard';
 import { Row, Divider } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { queuesStartLoading } from '../../actions/queues';
 
 
 export const QueueMainScreen = () => {
+
+    const { queues } = useSelector(state => state.queue)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -15,21 +17,25 @@ export const QueueMainScreen = () => {
 
     return (
         <>
-        <Row justify="space-around">
-            Filas
+            <Row justify="space-around">
+                Filas
         </Row>
-        <Divider />
-        <Row justify="space-around">
+            <Divider />
+            <Row justify="space-around">
 
-            <QueueCard ></QueueCard>
-            <QueueCard ></QueueCard>
-            <QueueCard ></QueueCard>
-            <QueueCard ></QueueCard>
-            <QueueCard ></QueueCard>
-            <QueueCard ></QueueCard>
-            <QueueCard ></QueueCard>
+                {
+                    queues.map(queue => (
+                        <QueueCard
+                            prefix={queue.name}
+                            last={queue.lastNumber}
+                            pending={queue.tickets.length}
 
-        </Row>
+                            key={queue._id}
+                        ></QueueCard>
+                    ))
+                }
+
+            </Row>
         </>
     )
 }
