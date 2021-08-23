@@ -26,6 +26,7 @@ export const QueueMainScreen = () => {
                 {
                     queues.map(queue => (
                         <QueueCard
+                            id={queue._id}
                             prefix={queue.name}
                             last={queue.lastNumber}
                             pending={queue.tickets.length}
