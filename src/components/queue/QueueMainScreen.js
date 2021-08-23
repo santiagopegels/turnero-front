@@ -29,6 +29,13 @@ export const QueueMainScreen = () => {
                             prefix={queue.name}
                             last={queue.lastNumber}
                             pending={queue.tickets.length}
+                            attended={queue.ticketsAttended.length}
+                            actualNumber={queue.ticketsAttended.length > 0
+                                ?
+                                queue.ticketsAttended[queue.ticketsAttended.length - 1].number
+                                :
+                                0
+                            }
 
                             key={queue._id}
                         ></QueueCard>
