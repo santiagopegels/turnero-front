@@ -7,5 +7,6 @@ export const types = {
     authStartTokenRenew: '[auth] Start Token Renew',
     authLogout: '[auth] Logout',
 
-    queuesLoaded: '[queue] Queues loaded', 
+    queuesLoaded: '[queue] Queues loaded',
+    queuesNextTicket: '[queue] Next Ticket',
 }
