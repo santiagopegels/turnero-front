@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react'
 
 import { QueueCard } from './QueueCard';
-import { Row, Divider } from 'antd';
+import { Row, Divider, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { queuesStartLoading } from '../../actions/queues'
+import {
+    PlusOutlined
+} from '@ant-design/icons';
+import { CreateQueueModal } from './CreateQueueModal';
 
 
 export const QueueMainScreen = () => {
@@ -15,14 +19,14 @@ export const QueueMainScreen = () => {
         dispatch(queuesStartLoading())
     }, [dispatch])
 
-
     return (
         <>
-            <Row justify="space-around">
+            <Row justify="center">
                 Filas
+            <CreateQueueModal />
             </Row>
             <Divider />
-            <Row justify="space-around">
+            <Row justify="center">
 
                 {
                     queues.map(queue => (

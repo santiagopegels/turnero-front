@@ -4,7 +4,7 @@ import { SocketContext } from '../../context/socket';
 
 export const QueueCard = ({ q }) => {
     const [queue, setQueue] = useState(q)
-    const [acutalNumber, setActualNumber] = useState(q.ticketsAttended.length > 0 ? q.ticketsAttended[q.ticketsAttended.length - 1].number : 0)
+    const [actualNumber, setActualNumber] = useState(q.ticketsAttended.length > 0 ? q.ticketsAttended[q.ticketsAttended.length - 1].number : 0)
     const socket = useContext(SocketContext);
     const screen = 'Cajero 1'
 
@@ -33,11 +33,12 @@ export const QueueCard = ({ q }) => {
                     <p>Atendidos: <Button type="primary">{queue.ticketsAttended.length}</Button></p>
                     <p>Pendientes: <Button type="primary">{queue.tickets.length}</Button></p>
                 </Col>
-                <Col span={12}>Actual: {`${queue.name}${acutalNumber}`}</Col>
+                <Col span={12}>Actual: {`${queue.name}${actualNumber}`}</Col>
             </Row>
             <Divider />
             <Button
-                block type="primary"
+                block 
+                type="primary"
                 onClick={handleNextTicket}
             >
                 Llamar Siguiente
