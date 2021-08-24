@@ -13,6 +13,15 @@ export const queueReducer = (state = initialState, action) => {
                 queues: [...action.payload]
             }
 
+        case types.queuesAddNewQueue:
+            return {
+                ...state,
+                queues: [
+                    ...state.queues,
+                    action.payload
+                ]
+            }
+
         default:
             return state;
     }

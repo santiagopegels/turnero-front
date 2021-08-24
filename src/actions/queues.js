@@ -4,7 +4,6 @@ import { types } from "../types/types"
 export const queuesStartLoading = () => {
     return async (dispatch) => {
         try {
-
             const resp = await fetchWithToken('queue/getAllUserQueues')
             const body = await resp.json()
             dispatch(queueLoaded(body.queues))
@@ -20,16 +19,21 @@ const queueLoaded = (queues) => ({
     payload: queues
 })
 
-export const queuesNextTicket = () => {
+export const newQueue = (payload) => {
     return async (dispatch) => {
         try {
 
-            const resp = await fetchWithToken('queue/getAllUserQueues')
+            const resp = await fetchWithToken('queue', payload, 'POST')
             const body = await resp.json()
-            dispatch(queueLoaded(body.queues))
+            dispatch(addNewQueue(body.queue))
 
         } catch (error) {
             console.log(error);
         }
     }
 }
+
+const addNewQueue = (queue) => ({
+    type: types.queuesAddNewQueue,
+    payload: queue
+})
