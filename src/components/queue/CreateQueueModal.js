@@ -66,6 +66,12 @@ export const CreateQueueModal = () => {
           >
             <Input />
           </Form.Item>
+          <Form.Item
+            name="description"
+            label="Descripción"
+          >
+            <Input />
+          </Form.Item>
         </Form>
       </Modal>
     </>

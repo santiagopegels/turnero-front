@@ -26,7 +26,7 @@ export const QueueCard = ({ q }) => {
     }
 
     return (
-        <Card title={`Prefijo: ${queue.name}`} style={{ width: 300, margin: 5 }}>
+        <Card title={queue.description ? queue.description : `Prefijo: ${queue.name}`} style={{ width: 300, margin: 5 }}>
             <Row>
                 <Col span={12}>
                     <p>Total: <Button type="primary">{queue.lastNumber}</Button></p>
