@@ -3,35 +3,52 @@ import { Layout, Menu } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  UserOutlined,
+  ForkOutlined,
   VideoCameraOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { QueueMainScreen } from '../queue/QueueMainScreen';
+import { Link } from 'react-router-dom';
 
 
-export const DashboardScreen = () => {
+export const DashboardScreen = ({ children }) => {
 
   const [collapsed, setCollapsed] = useState(true)
+  const [keySelected, setKeySelected] = useState("1")
   const { Header, Sider, Content } = Layout;
-
 
   const toggle = () => {
     setCollapsed(!collapsed)
   }
 
+  const handleMenuItemSelected = ({ key }) => {
+    console.log(key);
+    
+    setKeySelected(key)
+  }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
-              </Menu.Item>
+        <Menu
+          theme="dark"
+          mode="inline"
+          selectedKeys={[keySelected]}
+          onClick={handleMenuItemSelected}
+        >
+
+          <Menu.Item key="1" icon={<ForkOutlined />}>
+            <Link to='/'>
+              Filas
+          </Link>
+          </Menu.Item>
+
           <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-              </Menu.Item>
+            <Link to='/screen'>
+              Pantallas
+          </Link>
+
+          </Menu.Item>
           <Menu.Item key="3" icon={<UploadOutlined />}>
             nav 3
               </Menu.Item>
@@ -54,7 +71,7 @@ export const DashboardScreen = () => {
           }}
         >
 
-          <QueueMainScreen></QueueMainScreen>
+        {children}
 
         </Content>
       </Layout>

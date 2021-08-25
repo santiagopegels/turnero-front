@@ -10,7 +10,8 @@ import { RegisterScreen } from '../components/auth/RegisterScreen';
 import { useDispatch, useSelector } from 'react-redux';
 import { startChecking } from '../actions/auth';
 import { PrivateRoute } from './PrivateRoute';
-import { DashboardScreen } from '../components/dashboard/DashboardScreen';
+import { QueueMainScreen } from '../components/queue/QueueMainScreen';
+import { PublicScreen } from '../components/screen/PublicScreen';
 
 
 export const AppRouter = () => {
@@ -48,7 +49,14 @@ export const AppRouter = () => {
                         exact
                         path="/"
                         isAuthenticated={!!uid}
-                        component={DashboardScreen}
+                        component={QueueMainScreen}
+                    />
+
+                    <PrivateRoute
+                        exact
+                        path="/screen"
+                        isAuthenticated={!!uid}
+                        component={PublicScreen}
                     />
 
                     <Redirect to="/" />

@@ -4,6 +4,7 @@ import { Row, Divider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { queuesStartLoading } from '../../actions/queues'
 import { CreateQueueModal } from './CreateQueueModal';
+import { DashboardScreen } from '../dashboard/DashboardScreen';
 
 
 export const QueueMainScreen = () => {
@@ -14,9 +15,10 @@ export const QueueMainScreen = () => {
     useEffect(() => {
         dispatch(queuesStartLoading())
     }, [dispatch])
+    
 
     return (
-        <>
+        <DashboardScreen>
             <Row justify="center">
                 Filas
             <CreateQueueModal />
@@ -35,6 +37,6 @@ export const QueueMainScreen = () => {
                 }
 
             </Row>
-        </>
+        </DashboardScreen>
     )
 }

@@ -8,17 +8,18 @@ export const QueueCard = ({ q }) => {
     const socket = useContext(SocketContext);
     const screen = 'Cajero 1'
 
-
-    socket.on('queues-change', (queueBack) => {
+    socket.on('queues-change', (queueBack, ticket) => {
         if (queueBack._id === queue._id) {
             setQueue(queueBack)
+            setActualNumber(ticket.number)
         }
     })
 
     const handleNextTicket = () => {
-        socket.emit('next-ticket', { queueId: queue._id, screen }, ({ status, message, ticket }) => {
+        socket.emit('next-ticket', { queueId: queue._id, screen }, ({ status, message, ticket, queue }) => {
             if (status) {
                 setActualNumber(ticket.number)
+                setQueue(queue)
             } else {
                 console.log(message)
             }

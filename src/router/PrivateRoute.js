@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 export const PrivateRoute = ({
     isAuthenticated,
     component: Component,
+    children: Children,
     ...rest
 }) => {
 
