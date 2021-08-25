@@ -10,20 +10,12 @@ import {
 import { Link } from 'react-router-dom';
 
 
-export const DashboardScreen = ({ children }) => {
-
+export const DashboardScreen = ({ children, keySelected }) => {
   const [collapsed, setCollapsed] = useState(true)
-  const [keySelected, setKeySelected] = useState("1")
   const { Header, Sider, Content } = Layout;
 
   const toggle = () => {
     setCollapsed(!collapsed)
-  }
-
-  const handleMenuItemSelected = ({ key }) => {
-    console.log(key);
-    
-    setKeySelected(key)
   }
 
   return (
@@ -34,17 +26,16 @@ export const DashboardScreen = ({ children }) => {
           theme="dark"
           mode="inline"
           selectedKeys={[keySelected]}
-          onClick={handleMenuItemSelected}
         >
 
           <Menu.Item key="1" icon={<ForkOutlined />}>
-            <Link to='/'>
+            <Link to='/' style={{ textDecoration: 'none' }}>
               Filas
           </Link>
           </Menu.Item>
 
           <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            <Link to='/screen'>
+            <Link to='/screen' style={{ textDecoration: 'none' }}>
               Pantallas
           </Link>
 

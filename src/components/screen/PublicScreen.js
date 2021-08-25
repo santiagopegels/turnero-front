@@ -16,7 +16,7 @@ export const PublicScreen = () => {
 
 
     return (
-        <DashboardScreen>
+        <DashboardScreen keySelected="2">
             {
                 tickets.map(ticket => {
                     return (

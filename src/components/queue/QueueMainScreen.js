@@ -18,7 +18,7 @@ export const QueueMainScreen = () => {
     
 
     return (
-        <DashboardScreen>
+        <DashboardScreen keySelected="1">
             <Row justify="center">
                 Filas
             <CreateQueueModal />
