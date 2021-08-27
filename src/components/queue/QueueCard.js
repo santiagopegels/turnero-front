@@ -2,11 +2,11 @@ import { Card, Button, Divider, Row, Col } from 'antd';
 import React, { useContext, useState } from 'react'
 import { SocketContext } from '../../context/socket';
 
-export const QueueCard = ({ q }) => {
+export const QueueCard = ({ q, place }) => {
     const [queue, setQueue] = useState(q)
     const [actualNumber, setActualNumber] = useState(q.ticketsAttended.length > 0 ? q.ticketsAttended[q.ticketsAttended.length - 1].number : 0)
     const socket = useContext(SocketContext);
-    const screen = 'Cajero 1'
+    const screen = place.name
 
     socket.on('queues-change', (queueBack, ticket) => {
         if (queueBack._id === queue._id) {
@@ -38,7 +38,7 @@ export const QueueCard = ({ q }) => {
             </Row>
             <Divider />
             <Button
-                block 
+                block
                 type="primary"
                 onClick={handleNextTicket}
             >

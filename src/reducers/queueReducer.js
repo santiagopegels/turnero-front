@@ -1,7 +1,8 @@
 import { types } from "../types/types";
 
 const initialState = {
-    queues: []
+    queues: [],
+    place: '',
 }
 
 export const queueReducer = (state = initialState, action) => {
@@ -20,6 +21,12 @@ export const queueReducer = (state = initialState, action) => {
                     ...state.queues,
                     action.payload
                 ]
+            }
+
+        case types.queuesAddCallPlace:
+            return {
+                ...state,
+                place: action.payload
             }
 
         default:

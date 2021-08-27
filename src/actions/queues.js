@@ -37,3 +37,8 @@ const addNewQueue = (queue) => ({
     type: types.queuesAddNewQueue,
     payload: queue
 })
+
+export const addCallPlace = (name) => ({
+    type: types.queuesAddCallPlace,
+    payload: name
+})

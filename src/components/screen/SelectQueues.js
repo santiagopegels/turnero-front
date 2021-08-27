@@ -33,11 +33,6 @@ export const SelectQueues = ({onFinish}) => {
         setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys]);
     };
 
-    const handleNextPublicScreen = () => {
-    }
-
-
-
     return (
         <Form
             name="basic"
