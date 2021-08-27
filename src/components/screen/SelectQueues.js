@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Transfer } from 'antd';
+import { Transfer, Button, Input, Form } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { queuesStartLoading } from '../../actions/queues';
 
 
-export const SelectQueues = () => {
+export const SelectQueues = ({onFinish}) => {
     const [targetKeys, setTargetKeys] = useState([]);
     const [selectedKeys, setSelectedKeys] = useState([]);
     const [data, setData] = useState([]);
@@ -16,37 +16,84 @@ export const SelectQueues = () => {
     }, [dispatch])
 
     useEffect(() => {
-        const data = queues.map(({_id:key, name:title, description}) =>(
-            {key,title,description}
-        ))
+        const data = queues.map(({ _id: key, name: title, description }) => {
+            if (description) {
+                title = description + '-' + title
+            }
+            return { key, title, description }
+        })
         setData(data)
     }, [queues])
 
-    console.log(queues)
-
-
-    const onChange = (nextTargetKeys, direction, moveKeys) => {
-        console.log('targetKeys:', nextTargetKeys);
-        console.log('direction:', direction);
-        console.log('moveKeys:', moveKeys);
+    const onChange = (nextTargetKeys) => {
         setTargetKeys(nextTargetKeys);
     };
 
     const onSelectChange = (sourceSelectedKeys, targetSelectedKeys) => {
-        console.log('sourceSelectedKeys:', sourceSelectedKeys);
-        console.log('targetSelectedKeys:', targetSelectedKeys);
         setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys]);
     };
 
+    const handleNextPublicScreen = () => {
+    }
+
+
+
     return (
-        <Transfer
-            dataSource={data}
-            titles={['Source', 'Target']}
-            targetKeys={targetKeys}
-            selectedKeys={selectedKeys}
-            onChange={onChange}
-            onSelectChange={onSelectChange}
-            render={item => `${item.title}-${item.description}`}
-        />
+        <Form
+            name="basic"
+            labelCol={{
+                span: 24,
+            }}
+            wrapperCol={{
+                span: 24,
+            }}
+            initialValues={{
+                remember: true,
+            }}
+            onFinish={onFinish}
+        >
+            <Form.Item
+                label="Seleccione las filas"
+                name="queues"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Debe seleccionar al menos 1 Fila!',
+                    },
+                ]}
+            >
+                <Transfer
+                    dataSource={data}
+                    titles={['Todas las filas', 'Filas Públicas']}
+                    targetKeys={targetKeys}
+                    selectedKeys={selectedKeys}
+                    onChange={onChange}
+                    onSelectChange={onSelectChange}
+                    render={item => `${item.title}`}
+                    listStyle={{
+                        width: '100%',
+                        height: 250,
+                    }}
+                />
+            </Form.Item>
+            <Form.Item
+                label="Nombre de la pantalla"
+                name="name"
+
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                wrapperCol={{
+                    offset: 11,
+                }}
+            >
+                <Button type="primary" htmlType="submit">
+                    Siguiente
+        </Button>
+            </Form.Item>
+
+        </Form>
+
     )
 }

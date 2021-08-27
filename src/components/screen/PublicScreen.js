@@ -2,28 +2,32 @@ import React, { useContext, useState } from 'react'
 import { DashboardScreen } from '../dashboard/DashboardScreen'
 import { SocketContext } from '../../context/socket';
 import { SelectQueues } from './SelectQueues';
+import { Divider } from 'antd';
 
 export const PublicScreen = () => {
     const socket = useContext(SocketContext);
     const [tickets, setTickets] = useState([])
-    const [screens, setScreens] = useState([])
+    const [queuesTrace, setQueuesTrace] = useState([])
 
     socket.on('queues-change', (queueBack, ticket) => {
-        if (screens.includes(queueBack._id)) {
+        if (queuesTrace.includes(queueBack._id)) {
             ticket.prefix = queueBack.name
             setTickets([...tickets, ticket])
         }
     })
-
+    const handlePublicScreenData = ({name, queues}) => {
+        setQueuesTrace(queues)
+    };
 
     return (
         <>
             {
-                !screens.length > 0 
+                !queuesTrace.length > 0 
                 ?
                 <DashboardScreen keySelected="2">
-                    Seleccione las filas
-                    <SelectQueues/>
+                    Configuración de Pantalla
+                    <Divider/>
+                    <SelectQueues onFinish={handlePublicScreenData}/>
                 </DashboardScreen>
                 :
                 <>
