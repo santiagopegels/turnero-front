@@ -8,10 +8,12 @@ export const QueueCard = ({ q, place }) => {
     const socket = useContext(SocketContext);
     const screen = place.name
 
-    socket.on('queues-change', (queueBack, ticket) => {
+    socket.on('queues-change', (queueBack, ticket = null) => {
         if (queueBack._id === queue._id) {
             setQueue(queueBack)
-            setActualNumber(ticket.number)
+            if(ticket){
+                setActualNumber(ticket.number)
+            }
         }
     })
 
