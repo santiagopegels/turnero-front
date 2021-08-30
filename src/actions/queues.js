@@ -42,3 +42,17 @@ export const addCallPlace = (name) => ({
     type: types.queuesAddCallPlace,
     payload: name
 })
+
+export const addNewTicket = (id) => {
+    return async (dispatch) => {
+        try {
+            const resp = await fetchWithToken(`queue/${id}/addTicket`, null, 'PUT')
+            const body = await resp.json()
+    console.log(body)
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { queuesStartLoading } from '../../actions/queues'
+import { queuesStartLoading, addNewTicket } from '../../actions/queues'
 import { Button, Row } from 'antd'
 
 export const PrinterScreen = () => {
@@ -13,6 +13,7 @@ export const PrinterScreen = () => {
 
     const handleQueueSelected = ({_id:id}) => {
 
+        dispatch(addNewTicket(id))
         
     }
 
