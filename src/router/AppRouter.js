@@ -12,6 +12,7 @@ import { startChecking } from '../actions/auth';
 import { PrivateRoute } from './PrivateRoute';
 import { QueueMainScreen } from '../components/queue/QueueMainScreen';
 import { PublicScreen } from '../components/screen/PublicScreen';
+import { PrinterScreen } from '../components/printer/PrinterScreen';
 
 
 export const AppRouter = () => {
@@ -57,6 +58,13 @@ export const AppRouter = () => {
                         path="/screen"
                         isAuthenticated={!!uid}
                         component={PublicScreen}
+                    />
+
+                    <PrivateRoute
+                        exact
+                        path="/printer"
+                        isAuthenticated={!!uid}
+                        component={PrinterScreen}
                     />
 
                     <Redirect to="/" />

@@ -41,8 +41,10 @@ export const DashboardScreen = ({ children, keySelected }) => {
 
           </Menu.Item>
           <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-              </Menu.Item>
+            <Link to='/printer' style={{ textDecoration: 'none' }}>
+              Impresora
+          </Link>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -62,7 +64,7 @@ export const DashboardScreen = ({ children, keySelected }) => {
           }}
         >
 
-        {children}
+          {children}
 
         </Content>
       </Layout>
