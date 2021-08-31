@@ -13,6 +13,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { QueueMainScreen } from '../components/queue/QueueMainScreen';
 import { PublicScreen } from '../components/screen/PublicScreen';
 import { PrinterScreen } from '../components/printer/PrinterScreen';
+import { DashboardScreen } from '../components/dashboard/DashboardScreen';
 
 
 export const AppRouter = () => {
@@ -49,6 +50,13 @@ export const AppRouter = () => {
                     <PrivateRoute
                         exact
                         path="/"
+                        isAuthenticated={!!uid}
+                        component={DashboardScreen}
+                    />
+
+                    <PrivateRoute
+                        exact
+                        path="/queues"
                         isAuthenticated={!!uid}
                         component={QueueMainScreen}
                     />

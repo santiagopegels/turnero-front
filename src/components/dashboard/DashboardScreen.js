@@ -29,7 +29,7 @@ export const DashboardScreen = ({ children, keySelected }) => {
         >
 
           <Menu.Item key="1" icon={<ForkOutlined />}>
-            <Link to='/' style={{ textDecoration: 'none' }}>
+            <Link to='/queues' style={{ textDecoration: 'none' }}>
               Filas
           </Link>
           </Menu.Item>
