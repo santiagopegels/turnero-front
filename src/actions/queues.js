@@ -42,3 +42,7 @@ export const addCallPlace = (name) => ({
     type: types.queuesAddCallPlace,
     payload: name
 })
+
+export const queueLogout = () => ({
+    type: types.queueLogout
+})

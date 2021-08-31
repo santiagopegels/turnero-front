@@ -1,5 +1,6 @@
 import { fetchWithoutToken, fetchWithToken } from "../helpers/fetch"
 import { types } from "../types/types"
+import { queueLogout } from "./queues"
 
 
 export const startLogin = (email, password) => {
@@ -65,3 +66,13 @@ export const startChecking = () => {
 }
 
 const checkingFinish = () => ({ type: types.authCheckingFinish })
+
+export const startLogout = () => {
+    return (dispatch) => {
+        localStorage.clear()
+        dispatch(queueLogout())
+        dispatch(logout())
+    }
+}
+
+const logout = () => ({ type: types.authLogout })

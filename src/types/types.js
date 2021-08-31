@@ -11,4 +11,5 @@ export const types = {
     queuesNextTicket: '[queue] Next Ticket',
     queuesAddNewQueue: '[queue] Add New Queue',
     queuesAddCallPlace: '[queue] Add Call Place',
+    queueLogout: '[queue] Queue Logout',
 }

@@ -29,6 +29,11 @@ export const queueReducer = (state = initialState, action) => {
                 place: action.payload
             }
 
+        case types.queueLogout:
+            return {
+                ...initialState
+            }
+
         default:
             return state;
     }
