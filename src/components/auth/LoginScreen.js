@@ -11,75 +11,78 @@ export const LoginScreen = () => {
         dispatch(startLogin(email, password))
     };
 
-
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
     return (
-        <Row>
-            <Col span={24}>
-                <Form
-                    name="basic"
-                    wrapperCol={{
-                        span: 24,
-                    }}
-                    initialValues={{
-                        remember: true,
-                    }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                >
-                    <Form.Item
-                        label="Email"
-                        name="email"
-                        initialValue='1241254@test.com'
-                        rules={[
-                            {
-                                required: true,
-                                type: 'email',
-                                message: 'Please input your email!',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
 
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        initialValue='124124'
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                        ]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
+        <Row className="auth-container">
+            <Col span={12}>
+                <Row className="auth-container-box">
+                    <Col span={24} className="auth-form-container">
+                        <h1 className="auth-title">Sign in</h1>
+                        <Form
+                            name="basic"
+                            layout="vertical"
+                            wrapperCol={{
+                                span: 24,
+                            }}
+                            initialValues={{
+                                remember: true,
+                            }}
+                            onFinish={onFinish}
+                            onFinishFailed={onFinishFailed}
+                        >
+                            <Form.Item
+                                name="email"
+                                initialValue='1241254@test.com'
+                                rules={[
+                                    {
+                                        required: true,
+                                        type: 'email',
+                                        message: 'Please input your email!',
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    className="auth-input"
+                                    placeholder="EMAIL"
+                                />
+                            </Form.Item>
 
-                    <Form.Item
-                        name="remember"
-                        valuePropName="checked"
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
-                    >
-                        <Checkbox>Remember me</Checkbox>
-                    </Form.Item>
+                            <Form.Item
+                                name="password"
+                                initialValue='124124'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                ]}
+                            >
+                                <Input.Password
+                                    className="auth-input"
+                                    placeholder="PASSWORD"
+                                />
+                            </Form.Item>
 
-                    <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
-                    >
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                </Button>
-                    </Form.Item>
-                </Form>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit" block className="auth-button" size="large">
+                                    LOGIN
+                            </Button>
+                            </Form.Item>
+                        </Form>
+                    </Col>
+                </Row>
+            </Col>
+            <Col span={12} className="overlay-container">
+                <Row className="overlay">
+                    <div class="overlay-panel overlay-right">
+                        <h1 style={{"color": "white"}}>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <Button ghost={true} block>Sign Up</Button>
+                    </div>
+                </Row>
             </Col>
         </Row>
     );

@@ -67,7 +67,7 @@ export const DashboardScreen = ({ children, keySelected }) => {
             <Button
               type='primary'
               danger
-              style={{ 'marginRight': 20 }}
+              className='logout-button'
               icon={
                 <LogoutOutlined
                   style={{ 'display': 'flex', 'justifyContent': 'center' }}

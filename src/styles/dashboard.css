@@ -19,3 +19,7 @@
   .site-layout .site-layout-background {
     background: #fff;
   }
+
+  .logout-button {
+    margin-right: 20px;
+  }
