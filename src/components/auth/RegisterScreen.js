@@ -3,11 +3,14 @@ import { Form, Input, Button, Row, Col } from 'antd';
 import { useDispatch } from 'react-redux';
 import { startRegister } from '../../actions/auth';
 import { useHistory } from 'react-router-dom';
+import useBodyClass from '../../hook/useBodyClass';
 
 export const RegisterScreen = () => {
-
     const dispatch = useDispatch()
     const history = useHistory()
+    useBodyClass(`auth-body`);
+
+
     const onFinish = ({ email, password, name }) => {
         dispatch(startRegister(email, password, name))
     };
@@ -25,16 +28,24 @@ export const RegisterScreen = () => {
             <Col span={12}>
                 <Row className="overlay">
                     <div className="overlay-panel overlay-right">
-                        <h1 className="text-header">Hello, Friend!</h1>
-                        <p>Enter your personal details and start journey with us</p>
-                        <Button ghost={true} block onClick={handleLoginButton}>Sign In</Button>
+                        <h1 className="text-header">¿Estás Registrado?</h1>
+                        <p>Para iniciar sesión, presiona en el botón</p>
+                        <Button
+                            ghost={true}
+                            block
+                            onClick={handleLoginButton}
+                            className="auth-button"
+                            size="large"
+                        > 
+                        INICIAR SESIÓN
+                        </Button>
                     </div>
                 </Row>
             </Col>
             <Col span={12}>
                 <Row className="auth-container-box">
                     <Col span={24} className="auth-form-container">
-                        <h1 className="auth-title">Sign up</h1>
+                        <h1 className="auth-title">Registro</h1>
                         <Form
                             name="register"
                             wrapperCol={{
@@ -125,7 +136,7 @@ export const RegisterScreen = () => {
                                     className="auth-button"
                                     size="large"
                                 >
-                                    Register
+                                    REGISTRARSE
                                 </Button>
                             </Form.Item>
                         </Form>

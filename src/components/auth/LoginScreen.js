@@ -3,11 +3,12 @@ import { Form, Input, Button, Row, Col } from 'antd';
 import { useDispatch } from 'react-redux';
 import { startLogin } from '../../actions/auth';
 import { useHistory } from 'react-router-dom';
+import useBodyClass from '../../hook/useBodyClass';
 
 export const LoginScreen = () => {
-
     const dispatch = useDispatch()
     const history = useHistory()
+    useBodyClass(`auth-body`);
 
     const onFinish = ({ email, password }) => {
         dispatch(startLogin(email, password))
@@ -20,14 +21,13 @@ export const LoginScreen = () => {
     const handleRegisterButton = () => {
         history.push('/register')
     }
-    
-    return (
 
+    return (
         <Row className="auth-container">
             <Col span={12}>
                 <Row className="auth-container-box">
                     <Col span={24} className="auth-form-container">
-                        <h1 className="auth-title">Sign in</h1>
+                        <h1 className="auth-title">Login</h1>
                         <Form
                             name="login"
                             layout="vertical"
@@ -75,7 +75,7 @@ export const LoginScreen = () => {
 
                             <Form.Item>
                                 <Button type="primary" htmlType="submit" block className="auth-button" size="large">
-                                    LOGIN
+                                    INGRESAR
                             </Button>
                             </Form.Item>
                         </Form>
@@ -85,9 +85,17 @@ export const LoginScreen = () => {
             <Col span={12} className="overlay-container">
                 <Row className="overlay">
                     <div className="overlay-panel overlay-right">
-                        <h1 className="text-header">Hello, Friend!</h1>
-                        <p>Enter your personal details and start journey with us</p>
-                            <Button ghost={true} block onClick={handleRegisterButton}>Sign Up</Button>
+                        <h1 className="text-header">¿Eres Nuevo?</h1>
+                        <p>Para crear una cuenta, presiona el botón</p>
+                        <Button
+                            ghost={true}
+                            block
+                            onClick={handleRegisterButton}
+                            className="auth-button"
+                            size="large"
+                        >
+                            CREAR CUENTA
+                        </Button>
                     </div>
                 </Row>
             </Col>
