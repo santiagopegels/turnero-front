@@ -1,11 +1,13 @@
 import React from 'react';
-import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
+import { Form, Input, Button, Row, Col } from 'antd';
 import { useDispatch } from 'react-redux';
 import { startLogin } from '../../actions/auth';
+import { useHistory } from 'react-router-dom';
 
 export const LoginScreen = () => {
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const onFinish = ({ email, password }) => {
         dispatch(startLogin(email, password))
@@ -14,6 +16,11 @@ export const LoginScreen = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    const handleRegisterButton = () => {
+        history.push('/register')
+    }
+    
     return (
 
         <Row className="auth-container">
@@ -22,7 +29,7 @@ export const LoginScreen = () => {
                     <Col span={24} className="auth-form-container">
                         <h1 className="auth-title">Sign in</h1>
                         <Form
-                            name="basic"
+                            name="login"
                             layout="vertical"
                             wrapperCol={{
                                 span: 24,
@@ -77,10 +84,10 @@ export const LoginScreen = () => {
             </Col>
             <Col span={12} className="overlay-container">
                 <Row className="overlay">
-                    <div class="overlay-panel overlay-right">
-                        <h1 style={{"color": "white"}}>Hello, Friend!</h1>
+                    <div className="overlay-panel overlay-right">
+                        <h1 className="text-header">Hello, Friend!</h1>
                         <p>Enter your personal details and start journey with us</p>
-                        <Button ghost={true} block>Sign Up</Button>
+                            <Button ghost={true} block onClick={handleRegisterButton}>Sign Up</Button>
                     </div>
                 </Row>
             </Col>

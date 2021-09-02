@@ -2,108 +2,136 @@ import React from 'react';
 import { Form, Input, Button, Row, Col } from 'antd';
 import { useDispatch } from 'react-redux';
 import { startRegister } from '../../actions/auth';
+import { useHistory } from 'react-router-dom';
 
 export const RegisterScreen = () => {
 
     const dispatch = useDispatch()
-
+    const history = useHistory()
     const onFinish = ({ email, password, name }) => {
         dispatch(startRegister(email, password, name))
     };
-
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
+    const handleLoginButton = () => {
+        history.push('/login')
+    }
+
     return (
-        <Row>
-            <Col span={24}>
-                <Form
-                    name="basic"
-                    wrapperCol={{
-                        span: 24,
-                    }}
-                    initialValues={{
-                        remember: true,
-                    }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                >
-                    <Form.Item
-                        label="Name"
-                        name="name"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input a name!',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
+        <Row className="auth-container">
+            <Col span={12}>
+                <Row className="overlay">
+                    <div className="overlay-panel overlay-right">
+                        <h1 className="text-header">Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <Button ghost={true} block onClick={handleLoginButton}>Sign In</Button>
+                    </div>
+                </Row>
+            </Col>
+            <Col span={12}>
+                <Row className="auth-container-box">
+                    <Col span={24} className="auth-form-container">
+                        <h1 className="auth-title">Sign up</h1>
+                        <Form
+                            name="register"
+                            wrapperCol={{
+                                span: 24,
+                            }}
+                            initialValues={{
+                                remember: true,
+                            }}
+                            onFinish={onFinish}
+                            onFinishFailed={onFinishFailed}
+                        >
+                            <Form.Item
+                                name="name"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input a name!',
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    className="auth-input"
+                                    placeholder="NAME"
+                                />
+                            </Form.Item>
 
-                    <Form.Item
-                        label="Email"
-                        name="email"
-                        rules={[
-                            {
-                                required: true,
-                                type: 'email',
-                                message: 'Please input your email!',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
+                            <Form.Item
+                                name="email"
+                                rules={[
+                                    {
+                                        required: true,
+                                        type: 'email',
+                                        message: 'Please input your email!',
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    className="auth-input"
+                                    placeholder="EMAIL"
+                                />
+                            </Form.Item>
 
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                        ]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
+                            <Form.Item
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                ]}
+                            >
+                                <Input.Password
+                                    className="auth-input"
+                                    placeholder="PASSWORD"
+                                />
+                            </Form.Item>
 
-                    <Form.Item
-                        label="Password Confirm"
-                        name="password2"
-                        dependencies={['password']}
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                            ({ getFieldValue }) => ({
-                                validator(_, value) {
-                                    if (!value || getFieldValue('password') === value) {
-                                        return Promise.resolve();
-                                    }
+                            <Form.Item
+                                name="password2"
+                                dependencies={['password']}
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                    ({ getFieldValue }) => ({
+                                        validator(_, value) {
+                                            if (!value || getFieldValue('password') === value) {
+                                                return Promise.resolve();
+                                            }
 
-                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
-                                },
-                            }),
-                        ]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
+                                            return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                        },
+                                    }),
+                                ]}
+                            >
+                                <Input.Password
+                                    placeholder="PASSWORD CONFIRM"
+                                    className="auth-input"
+                                />
+                            </Form.Item>
 
-                    <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                        }}
-                    >
-                        <Button type="primary" htmlType="submit">
-                            Register
-                </Button>
-                    </Form.Item>
-                </Form>
+                            <Form.Item>
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    block
+                                    className="auth-button"
+                                    size="large"
+                                >
+                                    Register
+                                </Button>
+                            </Form.Item>
+                        </Form>
+
+                    </Col>
+                </Row>
             </Col>
         </Row>
     );
