@@ -3,6 +3,9 @@ import { Button, Input, Form } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { useDispatch } from 'react-redux';
 import { newQueue } from '../../actions/queues';
+import {
+  PlusOutlined
+} from '@ant-design/icons';
 
 export const CreateQueueModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -25,13 +28,15 @@ export const CreateQueueModal = () => {
   return (
     <>
       <Button
-        type="primary"
+        type="link"
         shape="rounded"
         size='small'
         onClick={showModal}
+        icon={<PlusOutlined
+          style={{ 'display': 'flex', 'justifyContent': 'center', 'fontSize': '2em', 'fontWeight': 'bold' }}
+        />}
       >
-        +
-        </Button>
+      </Button>
       <Modal
         title="Nueva Fila"
         visible={isModalVisible}

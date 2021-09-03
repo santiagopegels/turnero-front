@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Menu, Button, Row } from 'antd';
+import { Layout, Menu, Button, Row, Tooltip } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -25,7 +25,7 @@ export const DashboardScreen = ({ children, keySelected }) => {
   const handleLogout = () => {
     dispatch(startLogout())
   }
-  
+
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -36,7 +36,6 @@ export const DashboardScreen = ({ children, keySelected }) => {
           mode="inline"
           selectedKeys={[keySelected]}
         >
-
           <Menu.Item key="1" icon={<ForkOutlined />}>
             <Link to='/queues'>
               Filas
@@ -64,16 +63,18 @@ export const DashboardScreen = ({ children, keySelected }) => {
               onClick: toggle,
             })
             }
-            <Button
-              type='primary'
-              danger
-              className='logout-button'
-              icon={
-                <LogoutOutlined
-                  style={{ 'display': 'flex', 'justifyContent': 'center' }}
-                />}
+            <Tooltip placement="bottom" title="Logout">
+              <Button
+                type='primary'
+                danger
+                className='logout-button'
+                icon={
+                  <LogoutOutlined
+                    style={{ 'display': 'flex', 'justifyContent': 'center' }}
+                  />}
                 onClick={handleLogout}
-            />
+              />
+            </Tooltip>
           </Row>
         </Header>
         <Content

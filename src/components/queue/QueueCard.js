@@ -11,7 +11,7 @@ export const QueueCard = ({ q, place }) => {
     socket.on('queues-change', (queueBack, ticket = null) => {
         if (queueBack._id === queue._id) {
             setQueue(queueBack)
-            if(ticket){
+            if (ticket) {
                 setActualNumber(ticket.number)
             }
         }
@@ -23,20 +23,36 @@ export const QueueCard = ({ q, place }) => {
                 setActualNumber(ticket.number)
                 setQueue(queue)
             } else {
-                console.log(message)
+                console.log('next ticket error', message)
             }
         })
     }
 
     return (
-        <Card title={queue.description ? queue.description : `Prefijo: ${queue.name}`} style={{ width: 300, margin: 5 }}>
+        <Card
+            title={queue.description ? queue.description : queue.name}
+            className="queue-card-container"
+            headStyle={{ 'fontSize': '2em', 'justifyContent': 'center', 'display': 'flex' }}
+
+        >
             <Row>
-                <Col span={12}>
-                    <p>Total: <Button type="primary">{queue.lastNumber}</Button></p>
-                    <p>Atendidos: <Button type="primary">{queue.ticketsAttended.length}</Button></p>
-                    <p>Pendientes: <Button type="primary">{queue.tickets.length}</Button></p>
+                <Col span={12} style={{ 'display': 'flex', 'justifyContent': 'center', 'flexDirection': 'column' }}>
+                    <p className="queue-card-body-title-text">
+                        Total: <span className="queue-card-body-info-text">{queue.lastNumber}</span>
+                    </p>
+                    <p className="queue-card-body-title-text">
+                        Atendidos: <span className="queue-card-body-info-text">{queue.ticketsAttended.length}</span>
+                    </p>
+                    <p className="queue-card-body-title-text">
+                        Pendientes: <span className="queue-card-body-info-text">{queue.tickets.length}</span>
+                    </p>
                 </Col>
-                <Col span={12}>Actual: {`${queue.name}${actualNumber}`}</Col>
+                <Col
+                    span={12}
+                    className="queue-card-body-actual-number-container"
+                >
+                    <p className="queue-card-body-actual-number-text">{`${queue.name}${actualNumber}`}</p>
+                </Col>
             </Row>
             <Divider />
             <Button

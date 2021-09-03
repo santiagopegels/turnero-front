@@ -11,3 +11,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.title {
+    font-size: 2em;
+}

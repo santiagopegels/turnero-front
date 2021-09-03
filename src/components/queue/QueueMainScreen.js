@@ -18,7 +18,6 @@ export const QueueMainScreen = () => {
 
     useEffect(() => {
         dispatch(queuesStartLoading())
-
     }, [dispatch])
 
     useEffect(() => {
@@ -33,7 +32,7 @@ export const QueueMainScreen = () => {
         <>
             <SetNamePlaceModal isVisible={isSetNamePlaceModalVisible} />
             <DashboardScreen keySelected="1">
-                <Row justify="center">
+                <Row justify="center" align="center" className="title">
                     Filas
             <CreateQueueModal />
                 </Row>
