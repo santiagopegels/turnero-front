@@ -59,8 +59,9 @@ export const QueueCard = ({ q, place }) => {
                 block
                 type="primary"
                 onClick={handleNextTicket}
+                size="large"
             >
-                Llamar Siguiente
+                LLAMAR SIGUIENTE
                 </Button>
         </Card>
     )

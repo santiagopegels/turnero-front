@@ -12,6 +12,12 @@ body {
     align-items: center;
 }
 
+.printer-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .title {
     font-size: 2em;
 }
