@@ -83,8 +83,8 @@ export const SelectQueues = ({onFinish}) => {
                     offset: 11,
                 }}
             >
-                <Button type="primary" htmlType="submit">
-                    Siguiente
+                <Button type="primary" htmlType="submit" size="large">
+                    SIGUIENTE
         </Button>
             </Form.Item>
 
