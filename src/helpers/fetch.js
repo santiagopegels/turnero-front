@@ -37,7 +37,7 @@ const fetchWithToken = (endpoint, data, method = 'GET') => {
                 'Content-type': 'application/json',
                 'x-token': token
             },
-
+            body: JSON.stringify(data)
         })
     }
 }
