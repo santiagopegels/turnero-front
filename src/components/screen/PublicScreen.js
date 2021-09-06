@@ -3,11 +3,12 @@ import { DashboardScreen } from '../dashboard/DashboardScreen'
 import { SocketContext } from '../../context/socket';
 import { SelectQueues } from './SelectQueues';
 import { Divider, Row } from 'antd';
+import { PublicNumbersScreen } from './PublicNumbersScreen';
 
 export const PublicScreen = () => {
     const socket = useContext(SocketContext);
     const [tickets, setTickets] = useState([])
-    const [queuesTrace, setQueuesTrace] = useState([])
+    const [queuesTrace, setQueuesTrace] = useState(['6113e4932f27de7f03cd1741','611593fc7a29769c3616586e','61253a752863e2618c3527c6'])
 
     socket.on('queues-change', (queueBack, ticket) => {
         if (queuesTrace.includes(queueBack._id)) {
@@ -15,6 +16,7 @@ export const PublicScreen = () => {
             setTickets([...tickets, ticket])
         }
     })
+    
     const handlePublicScreenData = ({ name, queues }) => {
         setQueuesTrace(queues)
     };
@@ -32,18 +34,7 @@ export const PublicScreen = () => {
                         <SelectQueues onFinish={handlePublicScreenData} />
                     </DashboardScreen>
                     :
-                    <>
-                        {
-                            tickets.map(ticket => {
-                                return (
-                                    <div key={ticket._id}>
-                                        <h4>{`Número: ${ticket.prefix}${ticket.number}`}</h4>
-                                        <h2>{ticket.screen}</h2>
-                                    </div>
-                                )
-                            })
-                        }
-                    </>
+                    <PublicNumbersScreen tickets={tickets} />
             }
         </>
 
