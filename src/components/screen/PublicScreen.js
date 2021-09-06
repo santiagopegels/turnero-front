@@ -13,10 +13,9 @@ export const PublicScreen = () => {
     socket.on('queues-change', (queueBack, ticket) => {
         if (queuesTrace.includes(queueBack._id)) {
             ticket.prefix = queueBack.name
-            setTickets([...tickets, ticket])
+            setTickets([ticket,...tickets])
         }
     })
-    
     const handlePublicScreenData = ({ name, queues }) => {
         setQueuesTrace(queues)
     };

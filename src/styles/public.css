@@ -18,6 +18,11 @@ body {
     align-items: center;
 }
 
+.public-screen-body {
+    overflow-y: hidden;
+    overflow-x: hidden; 
+}
+
 .title {
     font-size: 2em;
 }
