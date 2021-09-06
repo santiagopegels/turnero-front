@@ -1,5 +1,5 @@
 import { Card, Button, Divider, Row, Col } from 'antd';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { SocketContext } from '../../context/socket';
 
 export const QueueCard = ({ q, place }) => {
@@ -8,15 +8,22 @@ export const QueueCard = ({ q, place }) => {
     const socket = useContext(SocketContext);
     const screen = place.name
 
-    socket.on('queues-change', (queueBack, ticket = null) => {
-        console.log('algo')
-        if (queueBack._id === queue._id) {
-            setQueue(queueBack)
-            if (ticket) {
-                setActualNumber(ticket.number)
+    useEffect(() => {
+        socket.on('queues-change', (queueBack, ticket = null) => {
+            console.log(queue)
+            if (queueBack._id === queue._id) {
+            console.log('algo')
+                setQueue(queueBack)
+                if (ticket) {
+                    setActualNumber(ticket.number)
+                }
             }
+        })
+        return () => {
+            socket.off()
         }
-    })
+    }, [queue, socket])
+
 
     const handleNextTicket = () => {
         socket.emit('next-ticket', { queueId: queue._id, screen }, ({ status, message, ticket, queue }) => {

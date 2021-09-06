@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { DashboardScreen } from '../dashboard/DashboardScreen'
 import { SocketContext } from '../../context/socket';
 import { SelectQueues } from './SelectQueues';
@@ -10,16 +10,21 @@ export const PublicScreen = () => {
     const [tickets, setTickets] = useState([])
     const [queuesTrace, setQueuesTrace] = useState(['6113e4932f27de7f03cd1741', '611593fc7a29769c3616586e', '61253a752863e2618c3527c6'])
 
-    socket.on('queues-change', (queueBack, ticket = null) => {
-        console.log(queueBack)
-        if (queuesTrace.includes(queueBack._id) && ticket) {
-            ticket.prefix = queueBack.name
-            if(tickets.length > 5){
-                tickets.splice(-1,1)
+    useEffect(() => {
+        socket.on('queues-change', (queueBack, ticket = null) => {
+            if (queuesTrace.includes(queueBack._id) && ticket) {
+                ticket.prefix = queueBack.name
+                if(tickets.length > 5){
+                    tickets.splice(-1,1)
+                }
+                setTickets([ticket, ...tickets])
             }
-            setTickets([ticket, ...tickets])
+        })
+        return () => {
+            socket.off()
         }
-    })
+    }, [socket, tickets])
+
 
     const handlePublicScreenData = ({ name, queues }) => {
         setQueuesTrace(queues)

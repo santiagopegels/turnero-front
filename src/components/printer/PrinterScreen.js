@@ -17,7 +17,6 @@ export const PrinterScreen = () => {
     }, [dispatch])
 
     const handleQueueSelected = ({ _id: id }) => {
-
         socket.emit('new-ticket', { queueId: id }, ({ status, message, queue }) => {
             if (status) {
                 setNumber(`${queue.name}${queue.lastNumber}`)
