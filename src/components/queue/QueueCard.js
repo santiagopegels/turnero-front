@@ -9,6 +9,7 @@ export const QueueCard = ({ q, place }) => {
     const screen = place.name
 
     socket.on('queues-change', (queueBack, ticket = null) => {
+        console.log('algo')
         if (queueBack._id === queue._id) {
             setQueue(queueBack)
             if (ticket) {

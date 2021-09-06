@@ -21,10 +21,10 @@ export const PrinterScreen = () => {
         socket.emit('new-ticket', { queueId: id }, ({ status, message, queue }) => {
             if (status) {
                 setNumber(`${queue.name}${queue.lastNumber}`)
-                setShowPrintMessage(true)
+                setShowPrintMessage(false)
                 setTimeout(() => {
                     setShowPrintMessage(false)
-                }, 4000);
+                }, 3000);
             } else {
                 console.log(message)
             }
