@@ -1,17 +1,11 @@
 import { Card, Button, Divider, Row, Col } from 'antd';
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
-export const QueueCard = ({ queue, place, handleNextTicket }) => {
-    const [actualNumber, setActualNumber] = useState(queue.ticketsAttended.length > 0 ? queue.ticketsAttended[queue.ticketsAttended.length - 1].number : 0)
-    const [localQueue, setLocalQueue] = useState(queue)
+export const QueueCard = ({ queue, handleNextTicket, actualNumber }) => {
 
-    useEffect(() => {
-        setActualNumber(queue.ticketsAttended.length > 0 ? queue.ticketsAttended[queue.ticketsAttended.length - 1].number : 0)
-        setLocalQueue(queue)
-    }, [queue])
     return (
         <Card
-            title={localQueue.description ? localQueue.description : localQueue.name}
+            title={queue.description ? queue.description : queue.name}
             className="queue-card-container"
             headStyle={{ 'fontSize': '2em', 'justifyContent': 'center', 'display': 'flex' }}
 
@@ -19,20 +13,20 @@ export const QueueCard = ({ queue, place, handleNextTicket }) => {
             <Row>
                 <Col span={12} style={{ 'display': 'flex', 'justifyContent': 'center', 'flexDirection': 'column' }}>
                     <p className="queue-card-body-title-text">
-                        Total: <span className="queue-card-body-info-text">{localQueue.lastNumber}</span>
+                        Total: <span className="queue-card-body-info-text">{queue.lastNumber}</span>
                     </p>
                     <p className="queue-card-body-title-text">
-                        Atendidos: <span className="queue-card-body-info-text">{localQueue.ticketsAttended.length}</span>
+                        Atendidos: <span className="queue-card-body-info-text">{queue.ticketsAttended.length}</span>
                     </p>
                     <p className="queue-card-body-title-text">
-                        Pendientes: <span className="queue-card-body-info-text">{localQueue.tickets.length}</span>
+                        Pendientes: <span className="queue-card-body-info-text">{queue.tickets.length}</span>
                     </p>
                 </Col>
                 <Col
                     span={12}
                     className="queue-card-body-actual-number-container"
                 >
-                    <p className="queue-card-body-actual-number-text">{`${localQueue.name}${actualNumber}`}</p>
+                    <p className="queue-card-body-actual-number-text">{`${queue.name}${actualNumber}`}</p>
                 </Col>
             </Row>
             <Divider />

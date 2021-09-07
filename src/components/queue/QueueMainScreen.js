@@ -48,10 +48,10 @@ export const QueueMainScreen = () => {
     const handleNextTicket = (id) => {
         socket.emit('next-ticket', { queueId: id, screen: place.name }, ({ status, message, queue: queueBack }) => {
             if (status) {
-                const newQueuesArrayOtro = queuesLocal.map(queue => {
+                const newQueuesArray = queuesLocal.map(queue => {
                     return queue._id === queueBack._id ? queueBack : queue;
                 });
-                setQueuesLocal(newQueuesArrayOtro)
+                setQueuesLocal(newQueuesArray)
             } else {
                 console.log('next ticket error', message)
             }
@@ -73,7 +73,7 @@ export const QueueMainScreen = () => {
                         queuesLocal.map(queue => (
                             <QueueCard
                                 queue={queue}
-                                place={place}
+                                actualNumber={queue.actualNumber}
                                 key={queue._id}
                                 handleNextTicket={handleNextTicket}
                             ></QueueCard>

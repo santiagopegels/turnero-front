@@ -8,7 +8,7 @@ import { PublicNumbersScreen } from './PublicNumbersScreen';
 export const PublicScreen = () => {
     const socket = useContext(SocketContext);
     const [tickets, setTickets] = useState([])
-    const [queuesTrace, setQueuesTrace] = useState(['6113e4932f27de7f03cd1741', '611593fc7a29769c3616586e', '61253a752863e2618c3527c6'])
+    const [queuesTrace, setQueuesTrace] = useState([])
     useEffect(() => {
         socket.on('queues-change', (queueBack, ticket = null) => {
             if (queuesTrace.includes(queueBack._id) && ticket) {
@@ -26,7 +26,7 @@ export const PublicScreen = () => {
     }, [socket, tickets, queuesTrace])
 
 
-    const handlePublicScreenData = ({ name, queues }) => {
+    const handlePublicScreenData = ({ queues }) => {
         setQueuesTrace(queues)
     };
 
