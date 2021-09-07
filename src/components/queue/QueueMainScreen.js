@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { QueueCard } from './QueueCard';
 import { Row, Divider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,13 +6,14 @@ import { queuesStartLoading } from '../../actions/queues'
 import { CreateQueueModal } from './CreateQueueModal';
 import { DashboardScreen } from '../dashboard/DashboardScreen';
 import { SetNamePlaceModal } from './SetNamePlaceModal';
+import { SocketContext } from '../../context/socket';
 
 
 export const QueueMainScreen = () => {
-
+    const [queuesLocal, setQueuesLocal] = useState([])
     const { queues, place } = useSelector(state => state.queue)
     const [isSetNamePlaceModalVisible, setIsSetNamePlaceModalVisible] = useState(true);
-
+    const socket = useContext(SocketContext);
     const dispatch = useDispatch()
 
 
@@ -21,12 +22,41 @@ export const QueueMainScreen = () => {
     }, [dispatch])
 
     useEffect(() => {
+        setQueuesLocal(queues)
+    }, [queues])
+
+    useEffect(() => {
         !place ?
             setIsSetNamePlaceModalVisible(true)
             :
             setIsSetNamePlaceModalVisible(false)
     }, [place])
 
+    useEffect(() => {
+        socket.on('queues-change', (queueBack) => {
+            const newQueuesArray = queuesLocal.map(queue => {
+                return queue._id === queueBack._id ? queueBack : queue;
+            });
+
+            setQueuesLocal(newQueuesArray)
+        })
+        return () => {
+            socket.off()
+        }
+    }, [queuesLocal, socket])
+
+    const handleNextTicket = (id) => {
+        socket.emit('next-ticket', { queueId: id, screen: place.name }, ({ status, message, queue: queueBack }) => {
+            if (status) {
+                const newQueuesArrayOtro = queuesLocal.map(queue => {
+                    return queue._id === queueBack._id ? queueBack : queue;
+                });
+                setQueuesLocal(newQueuesArrayOtro)
+            } else {
+                console.log('next ticket error', message)
+            }
+        })
+    }
 
     return (
         <>
@@ -40,11 +70,12 @@ export const QueueMainScreen = () => {
                 <Row justify="center">
 
                     {
-                        queues.map(queue => (
+                        queuesLocal.map(queue => (
                             <QueueCard
-                                q={queue}
+                                queue={queue}
                                 place={place}
                                 key={queue._id}
+                                handleNextTicket={handleNextTicket}
                             ></QueueCard>
                         ))
                     }
