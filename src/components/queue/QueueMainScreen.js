@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { QueueCard } from './QueueCard';
-import { Row, Divider } from 'antd';
+import { Row, Divider, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { queuesStartLoading } from '../../actions/queues'
 import { CreateQueueModal } from './CreateQueueModal';
@@ -11,11 +11,11 @@ import { SocketContext } from '../../context/socket';
 
 export const QueueMainScreen = () => {
     const [queuesLocal, setQueuesLocal] = useState([])
-    const { queues, place } = useSelector(state => state.queue)
     const [isSetNamePlaceModalVisible, setIsSetNamePlaceModalVisible] = useState(true);
+    const { queues, place } = useSelector(state => state.queue)
+    const { loading } = useSelector(state => state.ui)
     const socket = useContext(SocketContext);
     const dispatch = useDispatch()
-
 
     useEffect(() => {
         dispatch(queuesStartLoading())
@@ -60,28 +60,36 @@ export const QueueMainScreen = () => {
 
     return (
         <>
-            <SetNamePlaceModal isVisible={isSetNamePlaceModalVisible} />
-            <DashboardScreen keySelected="1">
-                <Row justify="center" align="center" className="title">
-                    Filas
-            <CreateQueueModal />
-                </Row>
-                <Divider />
-                <Row justify="center">
+            {
+                loading
+                    ?
+                    <Spin />
+                    :
+                    <>
+                    <SetNamePlaceModal isVisible={isSetNamePlaceModalVisible} />
+                    <DashboardScreen keySelected="1">
+                        <Row justify="center" align="center" className="title">
+                            Filas
+                            <CreateQueueModal />
+                        </Row>
+                        <Divider />
+                        <Row justify="center">
 
-                    {
-                        queuesLocal.map(queue => (
-                            <QueueCard
-                                queue={queue}
-                                actualNumber={queue.actualNumber}
-                                key={queue._id}
-                                handleNextTicket={handleNextTicket}
-                            ></QueueCard>
-                        ))
-                    }
+                            {
+                                queuesLocal.map(queue => (
+                                    <QueueCard
+                                        queue={queue}
+                                        actualNumber={queue.actualNumber}
+                                        key={queue._id}
+                                        handleNextTicket={handleNextTicket}
+                                    ></QueueCard>
+                                ))
+                            }
 
-                </Row>
-            </DashboardScreen>
+                        </Row>
+                    </DashboardScreen>
+                    </>
+            }
         </>
     )
 }

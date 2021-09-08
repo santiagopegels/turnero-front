@@ -1,13 +1,15 @@
 import { fetchWithToken } from "../helpers/fetch"
 import { types } from "../types/types"
+import { stopLoading, startLoading } from "./ui"
 
 export const queuesStartLoading = () => {
     return async (dispatch) => {
         try {
+            dispatch(startLoading())
             const resp = await fetchWithToken('queue/getAllUserQueues')
             const body = await resp.json()
             dispatch(queueLoaded(body.queues))
-
+            dispatch(stopLoading())
         } catch (error) {
             console.log(error);
         }

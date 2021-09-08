@@ -1,5 +1,11 @@
 
 export const types = {
+    uiSetError: '[ui] Set Error',
+    uiRemoveError: '[ui] Remove Error',
+
+    uiStartLoading: '[ui] Start Loading',
+    uiStopLoading: '[ui] Stop Loading',
+
     authStartLogin: '[auth] Start login',
     authLogin: '[auth] Login',
     authStartRegister: '[auth] Start Register',
