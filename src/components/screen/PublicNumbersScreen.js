@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import { Col, Row } from 'antd';
 import useBodyClass from '../../hook/useBodyClass';
-import * as dayjs from 'dayjs'
-import { useSelector } from 'react-redux';
+import * as dayjs from 'dayjs';
 
-export const PublicNumbersScreen = ({ tickets }) => {
+export const PublicNumbersScreen = ({ tickets, name }) => {
     useBodyClass('public-screen-body');
     const [time, setTime] = useState(dayjs().format('HH:mm'))
-    const {place} = useSelector(state => state.queue)
 
     const timeChange = () => {
         setTime(dayjs().format('HH:mm'))
@@ -19,7 +17,7 @@ export const PublicNumbersScreen = ({ tickets }) => {
         <>
             <Row className="ps-header-container" justify="space-between">
                 <span>{time}</span>
-                <span>{place}</span>
+                <span>{name}</span>
                 <span>{dayjs().format('d/M/YYYY')}</span>
             </Row>
             <Row className="ps-content-container" justify="space-around" align="middle">

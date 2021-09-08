@@ -9,6 +9,8 @@ export const PublicScreen = () => {
     const socket = useContext(SocketContext);
     const [tickets, setTickets] = useState([])
     const [queuesTrace, setQueuesTrace] = useState([])
+    const [nameScreen, setNameScreen] = useState('')
+
     useEffect(() => {
         socket.on('queues-change', (queueBack, ticket = null) => {
             if (queuesTrace.includes(queueBack._id) && ticket) {
@@ -26,8 +28,9 @@ export const PublicScreen = () => {
     }, [socket, tickets, queuesTrace])
 
 
-    const handlePublicScreenData = ({ queues }) => {
+    const handlePublicScreenData = ({ queues, name }) => {
         setQueuesTrace(queues)
+        setNameScreen(name)
     };
 
     return (
@@ -43,7 +46,7 @@ export const PublicScreen = () => {
                         <SelectQueues onFinish={handlePublicScreenData} />
                     </DashboardScreen>
                     :
-                    <PublicNumbersScreen tickets={tickets} />
+                    <PublicNumbersScreen tickets={tickets} name={nameScreen} />
             }
         </>
 
