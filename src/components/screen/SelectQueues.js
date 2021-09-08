@@ -3,27 +3,10 @@ import { Transfer, Button, Input, Form } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { queuesStartLoading } from '../../actions/queues';
 
-
-export const SelectQueues = ({onFinish}) => {
+export const SelectQueues = ({onFinish, data}) => {
+    console.log(data)
     const [targetKeys, setTargetKeys] = useState([]);
     const [selectedKeys, setSelectedKeys] = useState([]);
-    const [data, setData] = useState([]);
-    const { queues } = useSelector(state => state.queue)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(queuesStartLoading())
-    }, [dispatch])
-
-    useEffect(() => {
-        const data = queues.map(({ _id: key, name: title, description }) => {
-            if (description) {
-                title = description + '-' + title
-            }
-            return { key, title, description }
-        })
-        setData(data)
-    }, [queues])
 
     const onChange = (nextTargetKeys) => {
         setTargetKeys(nextTargetKeys);

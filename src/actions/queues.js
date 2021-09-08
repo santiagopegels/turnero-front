@@ -4,8 +4,9 @@ import { stopLoading, startLoading } from "./ui"
 
 export const queuesStartLoading = () => {
     return async (dispatch) => {
+        dispatch(startLoading())
+
         try {
-            dispatch(startLoading())
             const resp = await fetchWithToken('queue/getAllUserQueues')
             const body = await resp.json()
             dispatch(queueLoaded(body.queues))

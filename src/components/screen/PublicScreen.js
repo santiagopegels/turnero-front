@@ -4,12 +4,36 @@ import { SocketContext } from '../../context/socket';
 import { SelectQueues } from './SelectQueues';
 import { Divider, Row } from 'antd';
 import { PublicNumbersScreen } from './PublicNumbersScreen';
+import { useSelector, useDispatch } from 'react-redux';
+import { queuesStartLoading } from '../../actions/queues';
 
 export const PublicScreen = () => {
     const socket = useContext(SocketContext);
     const [tickets, setTickets] = useState([])
     const [queuesTrace, setQueuesTrace] = useState([])
     const [nameScreen, setNameScreen] = useState('')
+    const [data, setData] = useState([]);
+    const { queues } = useSelector(state => state.queue)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(queuesStartLoading())
+    }, [dispatch])
+   
+    useEffect(() => {
+        const data = queues.map(({ _id: key, name: title, description }) => {
+            if (description) {
+                title = description + '-' + title
+            }
+            return { key, title, description }
+        })
+        setData(data)
+    }, [queues])
+
+    const handlePublicScreenData = ({ queues, name }) => {
+        setQueuesTrace(queues)
+        setNameScreen(name)
+    };
 
     useEffect(() => {
         socket.on('queues-change', (queueBack, ticket = null) => {
@@ -27,12 +51,6 @@ export const PublicScreen = () => {
         }
     }, [socket, tickets, queuesTrace])
 
-
-    const handlePublicScreenData = ({ queues, name }) => {
-        setQueuesTrace(queues)
-        setNameScreen(name)
-    };
-
     return (
         <>
             {
@@ -43,7 +61,7 @@ export const PublicScreen = () => {
                             Configuración de Pantalla Pública
                         </Row>
                         <Divider />
-                        <SelectQueues onFinish={handlePublicScreenData} />
+                        <SelectQueues onFinish={handlePublicScreenData} data={data} />
                     </DashboardScreen>
                     :
                     <PublicNumbersScreen tickets={tickets} name={nameScreen} />

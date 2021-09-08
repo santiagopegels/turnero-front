@@ -1,25 +1,37 @@
 .trigger {
-    padding: 0 24px;
-    font-size: 18px;
-    line-height: 64px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-.trigger:hover {
-    color: #1890ff;
-  }
-  
-  .logo {
-    height: 32px;
-    margin: 16px;
-    background: rgba(255, 255, 255, 0.3);
-  }
-  
-  .site-layout .site-layout-background {
-    background: #fff;
-  }
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
 
-  .logout-button {
-    margin-right: 20px;
-  }
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+.logout-button {
+  margin-right: 20px;
+}
+
+.dashboard-content {
+  margin: 24px 16px;
+  padding: 24px;
+  min-height: 280px;
+}
+
+.loading-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

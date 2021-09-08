@@ -14,6 +14,7 @@ import { QueueMainScreen } from '../components/queue/QueueMainScreen';
 import { PublicScreen } from '../components/screen/PublicScreen';
 import { PrinterScreen } from '../components/printer/PrinterScreen';
 import { DashboardScreen } from '../components/dashboard/DashboardScreen';
+import { Spin } from 'antd';
 
 
 export const AppRouter = () => {
@@ -26,7 +27,7 @@ export const AppRouter = () => {
     }, [dispatch])
 
     if (checking) {
-        return (<h1>Espere...</h1>)
+        return (<Spin className="spinner-body" size="large"/>)
     }
 
     return (

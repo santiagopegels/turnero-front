@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Menu, Button, Row, Tooltip } from 'antd';
+import { Layout, Menu, Button, Row, Tooltip, Spin } from 'antd';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -9,7 +9,7 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { startLogout } from '../../actions/auth';
 
 
@@ -17,6 +17,7 @@ export const DashboardScreen = ({ children, keySelected }) => {
   const [collapsed, setCollapsed] = useState(true)
   const { Header, Sider, Content } = Layout;
   const dispatch = useDispatch()
+  const { loading } = useSelector(state => state.ui)
 
   const toggle = () => {
     setCollapsed(!collapsed)
@@ -78,16 +79,15 @@ export const DashboardScreen = ({ children, keySelected }) => {
           </Row>
         </Header>
         <Content
-          className="site-layout-background"
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-
-          }}
+          className={loading ? 'loading-content' : 'site-layout-background dashboard-content'}
         >
 
-          {children}
+          {
+            loading ?
+              <Spin size="large" />
+              :
+              children
+          }
 
         </Content>
       </Layout>
