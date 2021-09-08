@@ -4,6 +4,8 @@ import { queuesStartLoading } from '../../actions/queues'
 import { Button, Row } from 'antd'
 import { socket } from '../../context/socket'
 import useBodyClass from '../../hook/useBodyClass'
+import { PrinterMessage } from './PrinterMessage'
+import { PrinterOptions } from './PrinterOptions'
 
 export const PrinterScreen = () => {
     const [showPrintMessage, setShowPrintMessage] = useState(false)
@@ -34,35 +36,9 @@ export const PrinterScreen = () => {
         <>
             {
                 !showPrintMessage ?
-                    queues.map(queue => {
-                        return (
-                            <Row
-                                justify="center"
-                                key={queue._id}
-                            >
-                                <Button
-                                    className="printer-option-button"
-                                    type="primary"
-                                    onClick={() => handleQueueSelected(queue)}>
-                                    {queue.description ? queue.description : queue.name}
-                                </Button>
-                            </Row>
-                        )
-                    })
+                    <PrinterOptions queues={queues} handleQueueSelected={handleQueueSelected}/>
                     :
-                    <div className="printer-message-container">
-                        <p
-                            className="printer-message-default"
-                        >
-                            Usted será llamado por el número
-                    </p>
-                    <div className="printer-message-number-container">
-
-                        <span className="printer-message-number">
-                            {number}
-                        </span>
-                    </div>
-                    </div>
+                    <PrinterMessage number={number} />
             }
         </>
     )
