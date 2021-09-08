@@ -1,15 +1,14 @@
 import React from 'react';
-import { Form, Input, Button, Row, Col, Spin, Alert } from 'antd';
+import { Form, Input, Button, Row, Col, Spin, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { startLogin } from '../../actions/auth';
 import { useHistory } from 'react-router-dom';
 import useBodyClass from '../../hook/useBodyClass';
-import { setError } from '../../actions/ui';
 
 export const LoginScreen = () => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const { loading, msgError } = useSelector(state => state.ui)
+    const { loading } = useSelector(state => state.ui)
     useBodyClass(`auth-body`);
 
     const onFinish = ({ email, password }) => {
@@ -17,7 +16,7 @@ export const LoginScreen = () => {
             .then(res => {
                 if (res) {
                     if (!res.status) {
-                        dispatch(setError(res.msg))
+                        message.error(res.message);
                     }
                 }
             })
@@ -93,11 +92,6 @@ export const LoginScreen = () => {
                                             </Button>
                                         </Form.Item>
                                     </Form>
-                                    <Alert
-                                        className={msgError ? 'show' : 'hidde'}
-                                        message={msgError}
-                                        type="error"
-                                        showIcon />
                                 </Col>
                             </Row>
                         </Col>

@@ -11,7 +11,7 @@ export const startLogin = (email, password) => {
             const resp = await fetchWithoutToken('auth/login', { email, password }, 'POST')
             const body = await resp.json()
             dispatch(stopLoading())
-            
+
             if (body.status) {
                 localStorage.setItem('token', body.token)
                 localStorage.setItem('token-init-date', new Date().getTime())
@@ -50,6 +50,8 @@ export const startRegister = (email, password, name) => {
                 uid: body.user.uid,
                 name: body.user.name
             }))
+        } else {
+            return body
         }
 
     }
