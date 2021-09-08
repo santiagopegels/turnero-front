@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { queuesStartLoading } from '../../actions/queues'
-import { Button, Row } from 'antd'
 import { socket } from '../../context/socket'
 import useBodyClass from '../../hook/useBodyClass'
 import { PrinterMessage } from './PrinterMessage'

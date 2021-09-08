@@ -1,22 +1,31 @@
 import { fetchWithoutToken, fetchWithToken } from "../helpers/fetch"
 import { types } from "../types/types"
 import { queueLogout } from "./queues"
+import { startLoading, stopLoading } from "./ui"
 
 
 export const startLogin = (email, password) => {
     return async (dispatch) => {
+        try {
+            dispatch(startLoading())
+            const resp = await fetchWithoutToken('auth/login', { email, password }, 'POST')
+            const body = await resp.json()
+            dispatch(stopLoading())
+            
+            if (body.status) {
+                localStorage.setItem('token', body.token)
+                localStorage.setItem('token-init-date', new Date().getTime())
 
-        const resp = await fetchWithoutToken('auth/login', { email, password }, 'POST')
-        const body = await resp.json()
-
-        if (body.status) {
-            localStorage.setItem('token', body.token)
-            localStorage.setItem('token-init-date', new Date().getTime())
-
-            dispatch(login({
-                uid: body.user.uid,
-                name: body.user.name
-            }))
+                dispatch(login({
+                    uid: body.user.uid,
+                    name: body.user.name
+                }))
+            }
+            else {
+                return body
+            }
+        } catch (error) {
+            console.log(error)
         }
 
     }

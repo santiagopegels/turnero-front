@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Transfer, Button, Input, Form } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
-import { queuesStartLoading } from '../../actions/queues';
 
 export const SelectQueues = ({onFinish, data}) => {
-    console.log(data)
     const [targetKeys, setTargetKeys] = useState([]);
     const [selectedKeys, setSelectedKeys] = useState([]);
 

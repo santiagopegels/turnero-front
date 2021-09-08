@@ -33,3 +33,11 @@ body {
 .title {
     font-size: 2em;
 }
+
+.show {
+    display: inherit;
+}
+
+.hidde {
+    display: none;
+}
