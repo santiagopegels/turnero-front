@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import {
-    BrowserRouter as Router,
     Switch,
     Redirect
 } from "react-router-dom";
@@ -27,58 +26,54 @@ export const AppRouter = () => {
     }, [dispatch])
 
     if (checking) {
-        return (<Spin className="spinner-body" size="large"/>)
+        return (<Spin className="spinner-body" size="large" />)
     }
 
     return (
-        <Router>
-            <div>
-                <Switch>
-                    <PublicRoute
-                        exact
-                        path="/login"
-                        component={LoginScreen}
-                        isAuthenticated={!!uid}
-                    />
+        <Switch>
+            <PublicRoute
+                exact
+                path="/login"
+                component={LoginScreen}
+                isAuthenticated={!!uid}
+            />
 
-                    <PublicRoute
-                        exact
-                        path="/register"
-                        component={RegisterScreen}
-                        isAuthenticated={!!uid}
-                    />
+            <PublicRoute
+                exact
+                path="/register"
+                component={RegisterScreen}
+                isAuthenticated={!!uid}
+            />
 
-                    <PrivateRoute
-                        exact
-                        path="/"
-                        isAuthenticated={!!uid}
-                        component={DashboardScreen}
-                    />
+            <PrivateRoute
+                exact
+                path="/"
+                isAuthenticated={!!uid}
+                component={DashboardScreen}
+            />
 
-                    <PrivateRoute
-                        exact
-                        path="/queues"
-                        isAuthenticated={!!uid}
-                        component={QueueMainScreen}
-                    />
+            <PrivateRoute
+                exact
+                path="/queues"
+                isAuthenticated={!!uid}
+                component={QueueMainScreen}
+            />
 
-                    <PrivateRoute
-                        exact
-                        path="/screen"
-                        isAuthenticated={!!uid}
-                        component={PublicScreen}
-                    />
+            <PrivateRoute
+                exact
+                path="/screen"
+                isAuthenticated={!!uid}
+                component={PublicScreen}
+            />
 
-                    <PrivateRoute
-                        exact
-                        path="/printer"
-                        isAuthenticated={!!uid}
-                        component={PrinterScreen}
-                    />
+            <PrivateRoute
+                exact
+                path="/printer"
+                isAuthenticated={!!uid}
+                component={PrinterScreen}
+            />
 
-                    <Redirect to="/" />
-                </Switch>
-            </div>
-        </Router>
+            <Redirect to="/" />
+        </Switch>
     )
 }

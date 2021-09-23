@@ -43,7 +43,7 @@ export const PublicScreen = () => {
                     tickets.splice(-1,1)
                 }
                 setTickets([ticket, ...tickets])
-                new Audio('./audio/next-ticket.mp3').play()
+                new Audio('./turnero-front/audio/next-ticket.mp3').play()
             }
         })
         return () => {
